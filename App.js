@@ -10,7 +10,7 @@ import {
 import TodoForm from "./todoform";
 
 export default function App() {
-  let [tasks] = useState([
+  const [tasks, setTasks] = useState([
     { task: "Go to gym", completed: false },
     { task: "Walk dog", completed: true },
     { task: "Buy groceries", completed: false },
@@ -19,6 +19,10 @@ export default function App() {
     { task: "Clean house", completed: false },
     { task: "Read book", completed: false },
   ]);
+
+  const addTask = (taskText) => {
+    setTasks((prevTasks) => [...prevTasks, { task: taskText, completed: false }]);
+  };
 
   function RenderedTodolist({ tasks }) {
     return (
@@ -40,7 +44,7 @@ export default function App() {
         <Text style={styles.headerText}>To-Do List</Text>
       </View>
       <View style={styles.content}>
-        <TodoForm />
+        <TodoForm addTask={addTask} />
         <RenderedTodolist tasks={tasks} />
       </View>
     </SafeAreaView>
@@ -49,7 +53,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#f8f9fa",
   },
   header: {
