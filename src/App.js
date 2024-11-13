@@ -22,11 +22,22 @@ export default function App() {
     { task: "Read book", completed: false },
   ]);
 
-  const Stack = createStackNavigator();
-
   const addTask = (taskText) => {
-    setTasks((prevTasks) => [...prevTasks, { task: taskText, completed: false }]);
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { task: taskText, completed: false },
+    ]);
   };
+
+  function App() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 
   function RenderedTodolist({ tasks }) {
     return (
@@ -42,8 +53,10 @@ export default function App() {
     );
   }
 
-  function HomeScreen() {
-    return (
+  const Stack = createStackNavigator();
+
+  return (
+    <NavigationContainer>
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.headerText}>To-Do List</Text>
@@ -53,28 +66,6 @@ export default function App() {
           <RenderedTodolist tasks={tasks} />
         </View>
       </SafeAreaView>
-    );
-  }
-
-  function AboutScreen() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.headerText}>About</Text>
-        </View>
-        <View style={styles.content}>
-          <Text>This is the About screen.</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-      </Stack.Navigator>
     </NavigationContainer>
   );
 }
