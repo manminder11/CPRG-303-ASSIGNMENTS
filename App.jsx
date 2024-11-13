@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import {
   SafeAreaView,
   StyleSheet,
@@ -20,6 +22,8 @@ export default function App() {
     { task: "Read book", completed: false },
   ]);
 
+  const Stack = createStackNavigator();
+
   const addTask = (taskText) => {
     setTasks((prevTasks) => [...prevTasks, { task: taskText, completed: false }]);
   };
@@ -38,16 +42,40 @@ export default function App() {
     );
   }
 
+  function HomeScreen() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>To-Do List</Text>
+        </View>
+        <View style={styles.content}>
+          <TodoForm addTask={addTask} />
+          <RenderedTodolist tasks={tasks} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  function AboutScreen() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>About</Text>
+        </View>
+        <View style={styles.content}>
+          <Text>This is the About screen.</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>To-Do List</Text>
-      </View>
-      <View style={styles.content}>
-        <TodoForm addTask={addTask} />
-        <RenderedTodolist tasks={tasks} />
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={AboutScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
