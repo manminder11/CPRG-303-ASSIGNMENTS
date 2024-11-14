@@ -1,11 +1,12 @@
-import Mainlayout from '../layouts/mainlayout';
+import React from 'react';
+import MainLayout from '../layouts/MainLayout';
 import { useNavigate } from 'react-router-dom';
 
 function Homescreen() {
   const navigate = useNavigate();
 
   return (
-    <Mainlayout>
+    <MainLayout>
       <div>
         <h1>Welcome to the Homescreen!</h1>
         <button 
@@ -17,7 +18,7 @@ function Homescreen() {
           Go to About
         </button>
       </div>
-    </Mainlayout>
+    </MainLayout>
   );
 }
 
