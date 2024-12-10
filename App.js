@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,9 +7,7 @@ import {
   Pressable,
   Text,
 } from "react-native";
-import TodoForm from "./components/TodoForm";
-import Homescreen from "./Screens/Homescreen";
-import Aboutscreen from "./Screens/Aboutscreen";
+import TodoForm from "./todoform";
 
 export default function App() {
   const [tasks, setTasks] = useState([
@@ -21,13 +17,11 @@ export default function App() {
     { task: "Cook dinner", completed: false },
     { task: "Mow lawn", completed: false },
     { task: "Clean house", completed: false },
+    { task: "Read book", completed: false },
   ]);
 
   const addTask = (taskText) => {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      { task: taskText, completed: false },
-    ]);
+    setTasks((prevTasks) => [...prevTasks, { task: taskText, completed: false }]);
   };
 
   function RenderedTodolist({ tasks }) {
@@ -44,28 +38,16 @@ export default function App() {
     );
   }
 
-  const Stack = createStackNavigator();
-
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Homescreen} />
-        <Stack.Screen name="About" component={Aboutscreen} />
-        <Stack.Screen name="TodoList">
-          {() => (
-            <SafeAreaView style={styles.container}>
-              <View style={styles.header}>
-                <Text style={styles.headerText}>To-Do List</Text>
-              </View>
-              <View style={styles.content}>
-                <TodoForm addTask={addTask} />
-                <RenderedTodolist tasks={tasks} />
-              </View>
-            </SafeAreaView>
-          )}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>To-Do List</Text>
+      </View>
+      <View style={styles.content}>
+        <TodoForm addTask={addTask} />
+        <RenderedTodolist tasks={tasks} />
+      </View>
+    </SafeAreaView>
   );
 }
 
